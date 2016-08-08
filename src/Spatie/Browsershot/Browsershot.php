@@ -283,7 +283,7 @@ class Browsershot
             page.viewportSize = { width: ".$this->width.($this->height == 0 ? '' : ', height: '.$this->height)." };
             page.open('{$this->url}', function() {
                     page.evaluate(function() {
-                        var styles = "", 
+                        var styles = '', 
                             removeClass = document.querySelectorAll('.section-vh');
                             
                         for (var i = 0; i < removeClass.length; i++) {
