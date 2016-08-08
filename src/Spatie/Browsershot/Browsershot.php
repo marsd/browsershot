@@ -274,27 +274,38 @@ class Browsershot
     {
         return "
             var page = require('webpage').create();
-            page.settings.javascriptEnabled = true;
-            page.settings.resourceTimeout = ".$this->timeout.";
+            page.settings = {
+                javascriptEnabled: true,
+                resourceTimeout: {$this->timeout},
+                loadImages: true,
+                localToRemoteUrlAccessEnabled: true,
+            };            
             page.viewportSize = { width: ".$this->width.($this->height == 0 ? '' : ', height: '.$this->height)." };
             page.open('{$this->url}', function() {
-                if (".($this->backgroundColor ? 'true' : 'false').") {
                     page.evaluate(function() {
+                        var styles = "", 
+                            removeClass = document.querySelectorAll('.section-vh');
+                            
+                        for (var i = 0; i < removeClass.length; i++) {
+                            removeClass[i].classList.remove('section-vh');
+                        }
+                        
+                        if (".($this->backgroundColor ? 'true' : 'false').") {
+                            styles += 'body { background: {$this->backgroundColor} }';
+                        }
+
                         var style = document.createElement('style'),
-                            text = document.createTextNode('body { background: {$this->backgroundColor} }');
+                            text = document.createTextNode(styles);
                         style.setAttribute('type', 'text/css');
                         style.appendChild(text);
                         document.head.insertBefore(style, document.head.firstChild);
                     });
-                }
                 
                 var renderOut = function() {
                     page.render('{$targetFile}');
                     phantom.exit();
                 };
-                
-                page.onLoadFinished = renderOut.call();
-                page.onResourceTimeout = renderOut.call();
+                setTimeout(renderOut, {$this->timeout});
             });
         ";
     }
