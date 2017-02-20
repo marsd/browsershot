@@ -285,7 +285,7 @@ class Browsershot
                     page.evaluate(function() {
                         var styles = '', 
                             removeClass = document.querySelectorAll('.section-vh'),
-                            removeAnimation = document.querySelectorAll('.animation')
+                            removeAnimation = document.querySelectorAll('.animation');
                             
                         for (var i = 0; i < removeClass.length; i++) {
                             removeClass[i].classList.remove('section-vh');
