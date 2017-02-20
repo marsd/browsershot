@@ -284,10 +284,15 @@ class Browsershot
             page.open('{$this->url}', function() {
                     page.evaluate(function() {
                         var styles = '', 
-                            removeClass = document.querySelectorAll('.section-vh');
+                            removeClass = document.querySelectorAll('.section-vh'),
+                            removeAnimation = document.querySelectorAll('.animation')
                             
                         for (var i = 0; i < removeClass.length; i++) {
                             removeClass[i].classList.remove('section-vh');
+                        }
+                        
+                        for (var i = 0; i < removeAnimation.length; i++) {
+                            removeAnimation[i].classList.remove('animation');
                         }
                         
                         if (".($this->backgroundColor ? 'true' : 'false').") {
