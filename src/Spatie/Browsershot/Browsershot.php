@@ -285,14 +285,16 @@ class Browsershot
                     page.evaluate(function() {
                         var styles = '', 
                             removeClass = document.querySelectorAll('.section-vh'),
-                            removeAnimation = document.querySelectorAll('.animation');
+                            removeAnimation = document.querySelectorAll('.anim-content, .animated, .animate');
                             
                         for (var i = 0; i < removeClass.length; i++) {
                             removeClass[i].classList.remove('section-vh');
                         }
                         
                         for (var i = 0; i < removeAnimation.length; i++) {
-                            removeAnimation[i].classList.remove('animation');
+                            removeAnimation[i].classList.remove('anim-content');
+                            removeAnimation[i].classList.remove('animated');
+                            removeAnimation[i].classList.remove('animate');
                         }
                         
                         if (".($this->backgroundColor ? 'true' : 'false').") {
